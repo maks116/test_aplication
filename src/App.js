@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.css';
+import UserCards from "./UserCards/UserCards";
+import RegForm from "./RegForm/RegForm";
+
+const App = () => {
+    const [count, setCount] = useState(0);
+    const [userLogins, setUserLogins] = useState([{ login: 'Admin', password: 'Admin'}]);
+
+    useEffect(() => {
+        localStorage.setItem('users',  JSON.stringify([{email: 'Maksim', password: "password"}]));
+    }, [])
+    return(
+        <div>
+            <button style={{ margin: "20px"}} onClick={() => setCount(count + 1) }>+</button>
+            {count}
+            <button style={{ margin: "20px"}} onClick={() => setCount(count - 1) }>-</button>
+            <RegForm initialUsers={userLogins} setUsers={setUserLogins} />
+            <UserCards count={count} />
+        </div>
+    )
 }
 
 export default App;
